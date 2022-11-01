@@ -28,13 +28,14 @@ final class Plugin implements HandlesArguments
 
     public Process $pestProcess;
 
-    private array|string $watchedDirectories = self::WATCHED_DIRECTORIES;
+    /** @var array<int, string> */
+    private array|string $watchedDirectories;
 
     public function __construct(
         private OutputInterface $output
     ) {
         // remove non-existing directories from watched directories
-        $this->watchedDirectories = array_filter($this->watchedDirectories, fn ($directory) => is_dir($directory));
+        $this->watchedDirectories = array_filter(self::WATCHED_DIRECTORIES, fn ($directory) => is_dir($directory));
     }
 
     public function handleArguments(array $originals): array
@@ -121,8 +122,6 @@ final class Plugin implements HandlesArguments
         $this->info('Change detected! Restarting Pest...');
 
         $this->pestProcess->stop(0);
-
-        $this->pestProcess->wait();
 
         $this->startProcess();
 

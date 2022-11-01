@@ -21,6 +21,7 @@
     "require": {
         "php": "^8.1",
         "pestphp/pest-plugin": "^1.0",
+        "nunomaduro/termwind": "^1.13",
         "spatie/file-system-watcher": "^1.1"
     },
     "conflict": {
